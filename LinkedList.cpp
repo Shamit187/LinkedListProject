@@ -74,7 +74,7 @@ size_t LinkedList<T>::getSize() const {
 }
 
 template <typename T>
-void LinkedList<T>::print() const {
+void LinkedList<T>::LinkedList<T>::print() const {
     Node* current = head;
 
     while (current != nullptr) {
@@ -83,4 +83,50 @@ void LinkedList<T>::print() const {
     }
 
     std::cout << std::endl;
+}
+
+template <typename T>
+bool LinkedList<T>::update(const std::string id, const T& value){
+    Node* current = head;
+
+    while (current != nullptr) {
+        if (current->data == id) {
+            current->data = value;
+            return true;
+        }
+
+        current = current->next;
+    }
+
+    return false;
+}
+
+template <typename T>
+bool LinkedList<T>::contains(const std::string id){
+    Node* current = head;
+
+    while (current != nullptr) {
+        if (current->data == id) {
+            return true;
+        }
+
+        current = current->next;
+    }
+
+    return false;
+}
+
+template <typename T>
+T LinkedList<T>::search(const std::string id){
+    Node* current = head;
+
+    while (current != nullptr) {
+        if (current->data == id) {
+            return current->data;
+        }
+
+        current = current->next;
+    }
+
+    return NULL;
 }

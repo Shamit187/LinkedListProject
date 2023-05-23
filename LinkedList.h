@@ -2,6 +2,7 @@
 #define LINKEDLISTPROJECT_LINKEDLIST_H
 
 #include <iostream>
+#include <string>
 
 template <typename T>
 class LinkedList {
@@ -27,13 +28,14 @@ public:
     void add(const T& value);
     void remove(const T& value);
     void clear();
+    bool update(const std::string id, const T& value);
 
     //special util
     bool contains(const T& value);
+    bool contains(const std::string id);
+    T search(const std::string id);
     size_t getSize() const;
     void print() const;
 };
-
-
 
 #endif
