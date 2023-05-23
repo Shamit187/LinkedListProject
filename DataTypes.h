@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#define MAX_TIME_SLOT 8
+
 struct Faculty {
     std::string id;
     std::string name;
@@ -12,6 +14,9 @@ struct Faculty {
     int age;
     std::string email;
     std::string phone;
+    std::vector<std::string> assignedCourse;
+    int active_credit;
+    bool time_slots[MAX_TIME_SLOT];
 
     bool operator==(const Faculty& obj) const{
         return  id == obj.id;
@@ -41,5 +46,10 @@ struct Course {
 
 };
 
+struct CourseAssignmentInfo {
+    std::string FacultyId;
+    std::string CourseCode;
+    int timeslot;
+};
 
 #endif
