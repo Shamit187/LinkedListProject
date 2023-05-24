@@ -39,12 +39,12 @@ public:
 
         size++;
     }
-    void remove(const T& value){
+    void remove(const std::string id){
         Node* current = head;
         Node* previous = nullptr;
 
         while (current != nullptr) {
-            if (current->data == value) {
+            if (current->data == id) {
                 if (previous == nullptr) {
                     head = current->next;
                 } else {
@@ -115,18 +115,17 @@ public:
 
         return false;
     }
-    T search(const std::string id){
+    T* search(const std::string id){
         Node* current = head;
 
         while (current != nullptr) {
             if (current->data == id) {
-                return current->data;
+                return &(current->data);
             }
 
             current = current->next;
         }
-
-        return NULL;
+        return nullptr;
     }
     size_t getSize() const{
         return size;
@@ -136,7 +135,7 @@ public:
         Node* current = head;
 
         while (current != nullptr) {
-            std::cout << current->data << " ";
+            std::cout << current->data << "\n";
             current = current->next;
         }
 
