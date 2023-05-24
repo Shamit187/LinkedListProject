@@ -1,6 +1,7 @@
 #include <iostream>
+#include "FacultyData.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    FacultyData facultyData;
+    facultyData.create();
 }

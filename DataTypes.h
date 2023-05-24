@@ -9,14 +9,13 @@
 struct Faculty {
     std::string id;
     std::string name;
-    std::string department;
     std::string designation;
-    int age;
     std::string email;
+    int ext;
+    int room;
     std::string phone;
     std::vector<std::string> assignedCourse;
     int active_credit;
-    bool time_slots[MAX_TIME_SLOT];
 
     bool operator==(const Faculty& obj) const{
         return  id == obj.id;
@@ -25,16 +24,26 @@ struct Faculty {
     bool operator==(const std::string& objID) const{
         return id == objID;
     }
-
 };
+
+std::ostream& operator<<(std::ostream &o, const Faculty& p){
+    o << "generatedID: " << p.id
+    << "\nName: " << p.name
+    << "\nDesignation: " << p.designation
+    << "\nEmail: " << p.email
+    << "\nEXT: " << p.ext
+    << "\nRoom: " << p.room
+    << "\nPhone: " << p.phone
+    << std::endl;
+    return o;
+}
 
 struct Course {
     std::string code;
-    std::string name;
-    std::string department;
+    std::string title;
+    std::string type;
     int credits;
-    int capacity;
-    int enrolled;
+    std::vector<std::string> parallelCourse;
 
     bool operator==(const Course& obj) const{
         return code == obj.code;

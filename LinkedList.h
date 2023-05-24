@@ -19,23 +19,129 @@ private:
 
 public:
     LinkedList() : head(nullptr), size(0) {}
-
-    ~LinkedList() {
+    ~LinkedList(){
         clear();
     }
 
     //modification
-    void add(const T& value);
-    void remove(const T& value);
-    void clear();
-    bool update(const std::string id, const T& value);
+    void add(const T& value){
+        Node* newNode = new Node(value);
+
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+
+        size++;
+    }
+    void remove(const T& value){
+        Node* current = head;
+        Node* previous = nullptr;
+
+        while (current != nullptr) {
+            if (current->data == value) {
+                if (previous == nullptr) {
+                    head = current->next;
+                } else {
+                    previous->next = current->next;
+                }
+
+                delete current;
+                size--;
+                return;
+            }
+
+            previous = current;
+            current = current->next;
+        }
+    }
+
+    void clear(){
+        Node* current = head;
+
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+
+        head = nullptr;
+        size = 0;
+    }
+    bool update(const std::string id, const T& value){
+        Node* current = head;
+
+        while (current != nullptr) {
+            if (current->data == id) {
+                current->data = value;
+                return true;
+            }
+
+            current = current->next;
+        }
+
+        return false;
+    }
 
     //special util
-    bool contains(const T& value);
-    bool contains(const std::string id);
-    T search(const std::string id);
-    size_t getSize() const;
-    void print() const;
+    bool contains(const T& value){
+        Node* current = head;
+
+        while (current != nullptr) {
+            if (current->data == value) {
+                return true;
+            }
+
+            current = current->next;
+        }
+
+        return false;
+    }
+    bool contains(const std::string id){
+        Node* current = head;
+
+        while (current != nullptr) {
+            if (current->data == id) {
+                return true;
+            }
+
+            current = current->next;
+        }
+
+        return false;
+    }
+    T search(const std::string id){
+        Node* current = head;
+
+        while (current != nullptr) {
+            if (current->data == id) {
+                return current->data;
+            }
+
+            current = current->next;
+        }
+
+        return NULL;
+    }
+    size_t getSize() const{
+        return size;
+    }
+
+    void print() const{
+        Node* current = head;
+
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+
+        std::cout << std::endl;
+    }
 };
 
 #endif
