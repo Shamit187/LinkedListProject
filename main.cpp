@@ -5,7 +5,7 @@ FacultyData facultyData;
 void facultyInterface(){
     while(true) {
         int choice;
-        std::cout << "1: CREATE\n2: READ\n3: UPDATE\n4: DELETE\n5: QUIT\n";
+        std::cout << "1: CREATE\n2: READ\n3: UPDATE\n4: DELETE\n5: LIST\n6: QUIT\n";
         std::cin >> choice;
         switch (choice) {
             case 1:
@@ -21,6 +21,9 @@ void facultyInterface(){
                 facultyData.remove();
                 break;
             case 5:
+                facultyData.print();
+                break;
+            case 6:
                 return;
                 break;
             default:

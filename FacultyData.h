@@ -116,6 +116,9 @@ public:
         mainData.remove(std::to_string(id));
     }
 
+    void print() {
+        mainData.print();
+    }
 };
 
 
