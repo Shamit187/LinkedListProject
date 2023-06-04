@@ -43,6 +43,7 @@ public:
         mainData.add(newFaculty);
         std::cout << "New Faculty entry added\n" << newFaculty;
     }
+
     void read(){
         int id;
         Faculty* searchedFaculty;

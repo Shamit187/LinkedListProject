@@ -43,7 +43,7 @@ struct Course {
     std::string title;
     std::string type;
     int credits;
-    std::vector<std::string> parallelCourse;
+    std::vector<std::string> preReqCourse;
 
     bool operator==(const Course& obj) const{
         return code == obj.code;
@@ -54,6 +54,22 @@ struct Course {
     }
 
 };
+
+std::ostream& operator<<(std::ostream& o, const Course& c) {
+    o << "Code: " << c.code
+      << "\nTitle: " << c.title
+      << "\nType: " << c.type
+      << "\nCredits: " << c.credits
+      << "\nPrerequisite Courses: ";
+    if (!c.preReqCourse.empty()) {
+        for (const auto& course : c.preReqCourse) {
+            o << course << " ";
+        }
+    }
+
+    o << std::endl;
+    return o;
+}
 
 struct CourseAssignmentInfo {
     std::string FacultyId;
