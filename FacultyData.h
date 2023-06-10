@@ -40,6 +40,7 @@ public:
         std::cin >> newFaculty.phone;
 
         newFaculty.id = std::to_string(++uniqueID);
+        newFaculty.freeSlots = std::vector<bool>(MAX_SLOT, false);
         mainData.add(newFaculty);
         std::cout << "New Faculty entry added\n" << newFaculty;
     }
@@ -56,6 +57,23 @@ public:
         }
         std::cout << "Searched Faculty:" << *(searchedFaculty);
     }
+
+    bool search(std::string &id){
+        Faculty* searchedFaculty;
+        searchedFaculty = mainData.search(id);
+        if(searchedFaculty == nullptr){
+            return false;
+        }
+        return true;
+    }
+
+    Faculty* get(std::string& id){
+        Faculty* searchedFaculty;
+        searchedFaculty = mainData.search(id);
+        return searchedFaculty;
+    }
+
+
     void update(){
         int id;
         Faculty* searchedFaculty;

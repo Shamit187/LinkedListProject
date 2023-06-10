@@ -87,6 +87,21 @@ public:
         std::cout << "Searched Course:" << *(searchedCourse);
     }
 
+    bool search(std::string& code){
+        Course* searchedCourse;
+        searchedCourse = mainData.search(code);
+        if(searchedCourse == nullptr){
+            return false;
+        }
+        return true;
+    }
+
+    Course* get(std::string& code){
+        Course* searchedCourse;
+        searchedCourse = mainData.search(code);
+        return searchedCourse;
+    }
+
     void update() {
         std::string code;
         Course* searchedCourse;
