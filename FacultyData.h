@@ -40,7 +40,7 @@ public:
         std::cin >> newFaculty.phone;
 
         newFaculty.id = std::to_string(++uniqueID);
-        newFaculty.freeSlots = std::vector<bool>(MAX_SLOT, false);
+        newFaculty.freeSlots = std::vector<bool>(MAX_SLOT, true);
         mainData.add(newFaculty);
         std::cout << "New Faculty entry added\n" << newFaculty;
     }

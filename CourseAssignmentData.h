@@ -5,11 +5,21 @@
 #include "DataTypes.h"
 #include "CourseData.h"
 #include "FacultyData.h"
+#include <algorithm>
 
 class CourseAssignmentData{
 private:
     LinkedList<CourseAssignmentInfo> mainData;
     int uniqueID;
+    static bool caseInsensitiveEquals(const std::string& a, const std::string& b)
+    {
+        return std::equal(a.begin(), a.end(),
+                          b.begin(), b.end(),
+                          [](char a, char b) {
+                              return tolower(a) == tolower(b);
+                          });
+    }
+
 
 public:
     CourseAssignmentData()
@@ -35,14 +45,63 @@ public:
         }
         if(MAX_CREDIT - facultyData.get(facultyID)->active_credit < courseData.get(courseCode)->credits){
             std::cout << "Faculty can not take this course due to credit violation" << std::endl;
+            return;
         }
-        CourseAssignmentInfo courseAssignmentInfo;
-        courseAssignmentInfo.FacultyId = facultyID;
-        courseAssignmentInfo.CourseCode = courseCode;
-        courseAssignmentInfo.id = ++uniqueID;
 
+        int total_credit_hour = courseData.get(courseCode)->credits;
+        for(int i = 1; i <= total_credit_hour; i ++){
+            std::cout << "Selecting class time for " << i << " credit." << std::endl;
+            std::cout << "Select Date >> " ;
+            std::string day_string;
+            int day;
+            std::cin >> day_string;
+            if(caseInsensitiveEquals(day_string, std::string("Saturday"))){
+                day = 0;
+            }else if(caseInsensitiveEquals(day_string, std::string("Sunday"))){
+                day = 1;
+            }else if(caseInsensitiveEquals(day_string, std::string("Monday"))){
+                day = 2;
+            }else if(caseInsensitiveEquals(day_string, std::string("Tuesday"))){
+                day = 3;
+            }else if(caseInsensitiveEquals(day_string, std::string("Wednesday"))){
+                day = 4;
+            }else if(caseInsensitiveEquals(day_string, std::string("Thursday"))){
+                day = 5;
+            }else if(caseInsensitiveEquals(day_string, std::string("Friday"))){
+                day = 6;
+            }else{
+                std::cout << "Invalid Day, Choose again." << std::endl;
+                i--;
+                continue;
+            }
 
-        std::cout << "Select Date";
+            std::cout << "Select Class Time >> " ;
+            int classTime;
+            std::cin >> classTime;
+            if(classTime < 8 || classTime > 17){
+                std::cout << "Wrong Time(Must be between 8 and 17" << std::endl;
+                i--;
+                continue;
+            }
+            classTime -= 8;
+            int timeslot = classTime + 10 * day;
+
+            if(!facultyData.get(facultyID)->freeSlots[timeslot]){
+                std::cout << "Faculty unavailable that time" << std::endl;
+                i--;
+                continue;
+            }
+
+            facultyData.get(facultyID)->freeSlots[timeslot] = false;
+            CourseAssignmentInfo courseAssignmentInfo;
+            courseAssignmentInfo.FacultyId = facultyID;
+            courseAssignmentInfo.CourseCode = courseCode;
+            courseAssignmentInfo.id = ++uniqueID;
+            courseAssignmentInfo.timeslot = timeslot;
+
+            mainData.add(courseAssignmentInfo);
+        }
+        facultyData.get(facultyID)->active_credit -= courseData.get(courseCode)->credits;
     }
 
 };
