@@ -141,6 +141,15 @@ public:
 
         std::cout << std::endl;
     }
+
+    T* index_get(int index){
+        Node* current = head;
+        for(int i = 0; i < index; i++){
+            current = current->next;
+            if(current == nullptr) return nullptr;
+        }
+        return &(current->data);
+    }
 };
 
 #endif

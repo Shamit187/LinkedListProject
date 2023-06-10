@@ -100,9 +100,57 @@ public:
             courseAssignmentInfo.timeslot = timeslot;
 
             mainData.add(courseAssignmentInfo);
+
+            std::cout << "New Course Assignment entry added\n" << courseAssignmentInfo << std::endl;
         }
+
         facultyData.get(facultyID)->active_credit -= courseData.get(courseCode)->credits;
+        facultyData.get(facultyID)->assignedCourse.push_back(courseCode);
+
     }
+
+    void read(){
+        std::string id;
+        CourseAssignmentInfo* searchedAssignment;
+        std::cout << "Enter Assignment ID:" << std::endl;
+        std::cin >> id;
+        searchedAssignment = mainData.search(id);
+        if(searchedAssignment == nullptr){
+            std::cout << "Course id unavailable\n";
+            return;
+        }
+        std::cout << "Searched Course:" << *(searchedAssignment);
+    }
+
+    void remove() {
+        std::string id;
+        CourseAssignmentInfo* searchedAssignment;
+        std::cout << "Enter Assignment ID:" << std::endl;
+        std::cin >> id;
+        searchedAssignment = mainData.search(id);
+        if(searchedAssignment == nullptr){
+            std::cout << "Course id unavailable\n";
+            return;
+        }
+        std::cout << "Searched Course:" << *(searchedAssignment);
+        std::cout << "Deleting Entry";
+        mainData.remove(id);
+    }
+
+    void print(){
+        mainData.print();
+    }
+
+    std::vector<std::vector<std::tuple<std::string, std::string>>> returnAllSlots(){
+        std::vector<std::vector<std::tuple<std::string, std::string>>> time_slots(MAX_SLOT);
+        for(int i = 0; i < uniqueID; i++){
+            CourseAssignmentInfo* searchedAssignment = mainData.index_get(i);
+            time_slots[searchedAssignment->timeslot].push_back(std::make_tuple(searchedAssignment->FacultyId, searchedAssignment->CourseCode));
+        }
+
+        return time_slots;
+    }
+
 
 };
 

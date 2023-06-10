@@ -155,6 +155,25 @@ struct CourseAssignmentInfo {
     std::string FacultyId;
     std::string CourseCode;
     int timeslot;
+
+    bool operator==(const CourseAssignmentInfo& obj) const{
+        return id == obj.id;
+    }
+
+    bool operator==(const std::string& objID) const{
+        return std::to_string(id) == objID;
+    }
 };
+
+std::ostream& operator<<(std::ostream& o, const CourseAssignmentInfo& c) {
+    o << "ID: " << c.id
+      << "\nFaculty ID: " << c.FacultyId
+      << "\nCourse Code: " << c.CourseCode
+      << "\nTimeSlot: " << slotTimeMap[c.timeslot];
+    o << std::endl;
+    return o;
+}
+
+
 
 #endif
